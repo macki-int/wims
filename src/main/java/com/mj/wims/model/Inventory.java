@@ -2,6 +2,7 @@ package com.mj.wims.model;
 
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "inventory")
@@ -13,6 +14,7 @@ public class Inventory {
     private Float productLength;
     private Integer quantity;
     private String Description;
+    private LocalDate updateDate;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
@@ -58,6 +60,14 @@ public class Inventory {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public LocalDate getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDate updateDate) {
+        this.updateDate = updateDate;
     }
 
     public Product getProduct() {
