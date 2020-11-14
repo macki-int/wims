@@ -26,6 +26,11 @@ public class ProductController {
         return ResponseEntity.ok().body(productRepository.findAll());
     }
 
+    @GetMapping("/product-types/{id}")
+    public ResponseEntity<?> findAllByProductTypeId(@PathVariable Long id){
+        return ResponseEntity.ok().body(productRepository.findAllByProductTypeId(id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Optional<Product> productOptional = productRepository.findById(id);
