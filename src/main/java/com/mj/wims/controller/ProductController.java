@@ -5,12 +5,13 @@ import com.mj.wims.dto.ProductDTO;
 import com.mj.wims.model.Product;
 import com.mj.wims.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -23,7 +24,7 @@ public class ProductController {
 
     @GetMapping()
     public ResponseEntity<?> findAll(){
-        return ResponseEntity.ok().body(productRepository.findAll());
+        return ResponseEntity.ok().body(productRepository.findAll(Sort.by(Sort.Direction.ASC, "name")));
     }
 
     @GetMapping("/product-types/{id}")
