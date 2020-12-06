@@ -85,7 +85,7 @@ public class InventoryController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
 
