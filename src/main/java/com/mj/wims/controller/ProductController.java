@@ -63,7 +63,7 @@ public class ProductController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<?> updateProduct(@RequestBody Product product){
         if(productRepository.existsById(product.getId())){
             try {
@@ -106,7 +106,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
         Optional<Product> productOptional = productRepository.findById(id);
 

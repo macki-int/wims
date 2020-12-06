@@ -56,7 +56,7 @@ public class InventoryController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<?> updateInventory(@RequestBody Inventory inventory) {
         if(inventoryRepository.existsById(inventory.getId())){
             try {
