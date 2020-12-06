@@ -58,7 +58,7 @@ public class ProductTypeController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<?> updateProductType(@RequestBody ProductType productType){
         if (productType.getName().isEmpty()){
             return ResponseEntity.badRequest().build();
