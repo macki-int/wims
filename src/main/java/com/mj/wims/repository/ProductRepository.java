@@ -19,7 +19,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //            "FROM product LEFT JOIN inventory ON product.id = inventory.product_id " +
 //            "WHERE  product_type_id = ?1", nativeQuery = true)
 
-    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
+
 //    @Query("SELECT p FROM Product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
+    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
     List<Object> findAllByProductTypeId(Long productTypeId);
+
+
+    @Query("SELECT MAX(i.updateDate) FROM Inventory i JOIN i.product p WHERE product_type_id = ?1")
+    List<Object> findMaxUpdateDateByProductType(Long productTypeId);
 }

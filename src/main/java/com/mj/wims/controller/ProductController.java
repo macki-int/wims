@@ -32,6 +32,11 @@ public class ProductController {
         return ResponseEntity.ok().body(productRepository.findAllByProductTypeId(id));
     }
 
+    @GetMapping("/product-types/max/{id}")
+    public ResponseEntity<?> findMaxUpdateDateByProductType(@PathVariable Long id){
+        return ResponseEntity.ok().body(productRepository.findMaxUpdateDateByProductType(id));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Optional<Product> productOptional = productRepository.findById(id);
