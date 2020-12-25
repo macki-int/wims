@@ -20,9 +20,23 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //            "WHERE  product_type_id = ?1", nativeQuery = true)
 
 
-//    @Query("SELECT p FROM Product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
+    //withInactiveValue == true and withZeroValue == true
     @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
-    List<Object> findAllByProductTypeId(Long productTypeId);
+    List<Object> findAllProductsAndZeroQuantityByProductTypeId(Long productTypeId);
+
+    //withInactiveValue == false and withZeroValue == true
+    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1  AND p.active = true ORDER BY p.id ASC")
+    List<Object> findActiveProductsAndZeroQuantityByProductTypeId(Long productTypeId);
+
+    //withInactiveValue == true and withZeroValue == false
+    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 AND p.active = true AND i.quantity > 0 ORDER BY p.id ASC")
+    List<Object> findActiveProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
+
+    //withInactiveValue == false and withZeroValue == false
+    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 AND i.quantity > 0 ORDER BY p.id ASC")
+    List<Object> findAllProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
+
+//    @Query("SELECT p FROM Product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
 
 
     @Query("SELECT MAX(i.updateDate) FROM Inventory i JOIN i.product p WHERE product_type_id = ?1")
