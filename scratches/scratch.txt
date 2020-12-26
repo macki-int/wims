@@ -1,0 +1,10 @@
+delete inventory and product (cascade)
+add edit product and activate in dialog (main table with new product)
+add new inventory in dialog
+add details in products list with edit
+
+add reservation
+add authorisation
+add flag calculate area in productType
+add pagination
+add search
