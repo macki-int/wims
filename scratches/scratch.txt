@@ -8,3 +8,4 @@ add authorisation
 add flag calculate area in productType
 add pagination
 add search
+add numbers format in table
