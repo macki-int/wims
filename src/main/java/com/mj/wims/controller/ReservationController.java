@@ -36,11 +36,7 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-
-
-
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
 
