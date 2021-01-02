@@ -10,4 +10,7 @@ add pagination
 add search
 add numbers format in table
 
+add tests to backend
+add tests to frontend
+
 wims-mj.herokuapp.com/swagger-ui/
