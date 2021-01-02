@@ -9,3 +9,5 @@ add flag calculate area in productType
 add pagination
 add search
 add numbers format in table
+
+wims-mj.herokuapp.com/swagger-ui/
