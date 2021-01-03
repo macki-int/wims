@@ -38,6 +38,12 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/inventories/{id}")
+    public ResponseEntity<?> findAllReservationsByInventoriesId(@PathVariable Long id){
+
+            return ResponseEntity.ok().body(reservationRepository.findAllReservationsByInventoriesId(id));
+    }
+
     @PostMapping()
     public ResponseEntity<?> createReservation(@RequestBody Reservation reservation) {
 
