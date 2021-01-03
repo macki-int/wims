@@ -5,6 +5,7 @@ import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> findAll() {
 
-        return ResponseEntity.ok().body(userRepository.findAll());
+        return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "nick")));
     }
 
     @GetMapping("/{id}")
