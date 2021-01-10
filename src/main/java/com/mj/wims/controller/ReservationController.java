@@ -57,6 +57,19 @@ public class ReservationController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
+    @PutMapping()
+    public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation){
+        if (reservationRepository.existsById(reservation.getId())) {
+            try {
+                reservationRepository.save(reservation);
+                 return ResponseEntity.ok().body(reservation);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+            return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
