@@ -43,6 +43,12 @@ public class InventoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/products/{id}")
+    public ResponseEntity<?> findAllByProductId(@PathVariable Long id) {
+
+        return ResponseEntity.ok().body(inventoryRepository.findAllByProductId(id));
+    }
+
     @PostMapping()
     public ResponseEntity<?> createInventory(@RequestBody Inventory inventory) {
 
