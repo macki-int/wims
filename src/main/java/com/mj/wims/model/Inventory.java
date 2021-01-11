@@ -13,7 +13,7 @@ public class Inventory {
     private Float productWidth;
     private Float productLength;
     private Integer quantity;
-    private String Description;
+    private String description;
     private LocalDate updateDate;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
@@ -55,11 +55,11 @@ public class Inventory {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 
     public LocalDate getUpdateDate() {
