@@ -59,7 +59,7 @@ public class Inventory {
     }
 
     public void setDescription(String description) {
-        description = description;
+        this.description = description;
     }
 
     public LocalDate getUpdateDate() {
