@@ -16,8 +16,8 @@ public class Product {
     @NotNull
     @Column(unique=true)
     private String name;
-//    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
+//    @ManyToOne
     @JoinColumn(name="product_type_id", nullable=false )
     private ProductType productType;
     @Value("${some.key:true}")
