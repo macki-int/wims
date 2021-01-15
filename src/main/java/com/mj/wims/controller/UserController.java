@@ -41,11 +41,22 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
-        Optional<String> stringOptional = userRepository.findByNick(userDTO.getNick());
+    @GetMapping("/nicks")
+    public ResponseEntity<?> findByNick(@RequestBody User user) {
+        Optional<User> userOptional = userRepository.findByNick(user.getNick());
 
-        if (stringOptional.isPresent()) {
+        if (userOptional.isPresent()) {
+            return ResponseEntity.ok().body(userOptional);
+        }
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
+        Optional<User> userOptional = userRepository.findByNick(userDTO.getNick());
+
+        if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
@@ -61,7 +72,7 @@ public class UserController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody User user) {
 
         if(userRepository.existsById(user.getId())){
@@ -106,7 +117,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         Optional<User> userOptional = userRepository.findById(id);
 
