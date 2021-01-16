@@ -1,18 +1,15 @@
 package com.mj.wims.config;
 
-
-
-
 public class LoginCredentials {
-    private String username;
+    private String nick;
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getNick() {
+        return nick;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     public String getPassword() {

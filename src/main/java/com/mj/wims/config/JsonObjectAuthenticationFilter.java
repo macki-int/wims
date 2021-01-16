@@ -30,7 +30,7 @@ public class JsonObjectAuthenticationFilter extends UsernamePasswordAuthenticati
             }
             com.mj.wims.config.LoginCredentials authRequest = objectMapper.readValue(sb.toString(), com.mj.wims.config.LoginCredentials.class);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                    authRequest.getUsername(), authRequest.getPassword()
+                    authRequest.getNick(), authRequest.getPassword()
             );
             setDetails(request, token);
             return this.getAuthenticationManager().authenticate(token);
