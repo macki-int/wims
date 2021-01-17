@@ -1,6 +1,5 @@
 package com.mj.wims.controller;
 
-import com.mj.wims.model.Inventory;
 import com.mj.wims.model.Reservation;
 import com.mj.wims.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
