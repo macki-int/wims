@@ -44,12 +44,12 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(TOKEN_HEADER);
         if (token != null && token.startsWith(TOKEN_PREFIX)) {
-            String userName = JWT.require(Algorithm.HMAC256(secret))
+            String username = JWT.require(Algorithm.HMAC256(secret))
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
-            if (userName != null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+            if (username != null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
             }
         }
