@@ -2,7 +2,6 @@ package com.mj.wims.controller;
 
 import com.mj.wims.converter.UserDTOToUserConverter;
 import com.mj.wims.dto.UserDTO;
-import com.mj.wims.model.LoginCredentials;
 import com.mj.wims.model.User;
 import com.mj.wims.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginCredentials credentials) {
+    public void login(@RequestBody User credentials) {
     }
 
     @PutMapping("/update")
@@ -111,7 +110,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id){
         Optional<User> userOptional = userRepository.findById(id);
 

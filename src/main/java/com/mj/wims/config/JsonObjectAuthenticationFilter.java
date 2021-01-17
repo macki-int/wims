@@ -1,7 +1,6 @@
 package com.mj.wims.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mj.wims.model.LoginCredentials;
 import com.mj.wims.model.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

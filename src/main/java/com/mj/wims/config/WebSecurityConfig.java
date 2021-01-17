@@ -53,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/*").permitAll()
+                .antMatchers("/**").permitAll()
 //                .antMatchers("/swagger-ui.html").permitAll()
 //                .antMatchers("/v2/api-docs").permitAll()
 //                .antMatchers("/webjars/**").permitAll()
@@ -62,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(authenticationFilter())
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsManager(), secret))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), super.userDetailsService(), secret))
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
