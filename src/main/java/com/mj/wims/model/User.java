@@ -13,7 +13,7 @@ public class User {
     private Long Id;
     @NotNull
     @Column(unique=true)
-    private String nick;
+    private String userName;
     private String firstName;
     private String lastName;
     @NotNull
@@ -34,12 +34,12 @@ public class User {
         Id = id;
     }
 
-    public String getNick() {
-        return nick;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {
