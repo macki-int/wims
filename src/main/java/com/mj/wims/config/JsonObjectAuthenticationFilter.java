@@ -2,6 +2,7 @@ package com.mj.wims.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mj.wims.model.LoginCredentials;
+import com.mj.wims.model.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +29,8 @@ public class JsonObjectAuthenticationFilter extends UsernamePasswordAuthenticati
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            LoginCredentials authRequest = objectMapper.readValue(sb.toString(), LoginCredentials.class);
+//            LoginCredentials authRequest = objectMapper.readValue(sb.toString(), LoginCredentials.class);
+            User authRequest = objectMapper.readValue(sb.toString(), User.class);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     authRequest.getUsername(), authRequest.getPassword()
             );

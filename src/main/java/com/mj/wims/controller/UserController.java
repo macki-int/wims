@@ -2,6 +2,7 @@ package com.mj.wims.controller;
 
 import com.mj.wims.converter.UserDTOToUserConverter;
 import com.mj.wims.dto.UserDTO;
+import com.mj.wims.model.LoginCredentials;
 import com.mj.wims.model.User;
 import com.mj.wims.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,10 @@ public class UserController {
         }
 
         return ResponseEntity.badRequest().body("Object did not create");
+    }
+
+    @PostMapping("/login")
+    public void login(@RequestBody LoginCredentials credentials) {
     }
 
     @PutMapping("/update")
