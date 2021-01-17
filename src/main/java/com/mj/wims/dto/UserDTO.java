@@ -4,7 +4,7 @@ package com.mj.wims.dto;
 import com.mj.wims.model.RoleEnum;
 
 public class UserDTO {
-    private String userName;
+    private String username;
     private String firstName;
     private String lastName;
     private String password;
@@ -13,12 +13,12 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {

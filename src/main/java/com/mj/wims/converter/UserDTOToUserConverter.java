@@ -9,7 +9,7 @@ public class UserDTOToUserConverter {
     public static User convert(UserDTO userDTO) {
         User user = new User();
 
-        user.setUserName(userDTO.getUserName());
+        user.setUsername(userDTO.getUsername());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setPassword(userDTO.getPassword());
