@@ -21,22 +21,26 @@ import java.util.Optional;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+//                .antMatchers("/*").permitAll()
+//                .antMatchers("/login").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/style/**").permitAll()
+                .antMatchers("/*").hasRole("ADMIN")
+                .antMatchers("/swagger-ui/").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-//                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .and()
+//                .logout().permitAll()
+//                .and()
                 .csrf().disable();
 
 //        http.authorizeRequests().antMatchers("/**").permitAll();
