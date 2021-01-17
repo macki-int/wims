@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Entity
-@Table(name = "product_type")
+@Table(name = "product_types")
 public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
