@@ -42,8 +42,8 @@ public class UserController {
     }
 
     @GetMapping("/nicks")
-    public ResponseEntity<?> findByNick(@RequestBody User user) {
-        Optional<User> userOptional = userRepository.findByNick(user.getNick());
+    public ResponseEntity<?> findByUserName(@RequestBody User user) {
+        Optional<User> userOptional = userRepository.findByUserName(user.getUserName());
 
         if (userOptional.isPresent()) {
             return ResponseEntity.ok().body(userOptional);
@@ -54,7 +54,7 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
-        Optional<User> userOptional = userRepository.findByNick(userDTO.getNick());
+        Optional<User> userOptional = userRepository.findByUserName(userDTO.getUserName());
 
         if (userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

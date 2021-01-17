@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
@@ -36,7 +37,11 @@ import javax.sql.DataSource;
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.jdbcAuthentication().dataSource(dataSource);
+            auth.jdbcAuthentication()
+                    .dataSource(dataSource)
+            .withUser("testUser")
+            .password("{bcrypt}" + new BCryptPasswordEncoder().encode("Pass1234"))
+            .roles("USER");
         }
 
         @Override
@@ -48,7 +53,7 @@ import javax.sql.DataSource;
                     .antMatchers("/v2/api-docs").permitAll()
                     .antMatchers("/webjars/**").permitAll()
                     .antMatchers("/swagger-resources/**").permitAll()
-                    .antMatchers("/h2-console/**").permitAll()
+//                    .antMatchers("/h2-console/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

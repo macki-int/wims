@@ -2,6 +2,7 @@ package com.mj.wims.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private final UserDetailsService userDetailsService;
     private final String secret;
 
+    @Autowired
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
                                   UserDetailsService userDetailsService,
                                   String secret) {
@@ -28,6 +30,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         this.userDetailsService = userDetailsService;
         this.secret = secret;
     }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
