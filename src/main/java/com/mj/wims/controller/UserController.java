@@ -27,7 +27,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> findAll() {
 
-        return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "userName")));
+        return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
     }
 
     @GetMapping("/{id}")
@@ -43,7 +43,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
-        Optional<String> stringOptional = userRepository.findByUserName(userDTO.getUserName());
+        Optional<String> stringOptional = userRepository.findByUsername(userDTO.getUsername());
 
         if (stringOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
