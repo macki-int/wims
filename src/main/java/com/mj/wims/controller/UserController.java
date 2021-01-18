@@ -72,6 +72,11 @@ public class UserController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
+
+    }
+
     @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody User user) {
 

@@ -28,19 +28,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/*").permitAll()
 //                .antMatchers("/login").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/*").hasRole("ADMIN")
+                .antMatchers("/*").permitAll()
+//                .antMatchers("/*").hasRole("ADMIN")
                 .antMatchers("/swagger-ui/").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .and()
-//                .logout().permitAll()
-//                .and()
+                .formLogin()
+                .loginPage("/users/login").permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
                 .csrf().disable();
 
 //        http.authorizeRequests().antMatchers("/**").permitAll();
@@ -59,8 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                Optional<User> optionalUser = userRepository.findByUsername(username);
-                return (UserDetails) optionalUser.get();
+                return userRepository.findUserByUsername(username);
             }
         }).passwordEncoder(passwordEncoder());
     }
