@@ -1,6 +1,7 @@
 package com.mj.wims.controller;
 
 import com.mj.wims.converter.UserDTOToUserConverter;
+import com.mj.wims.dto.LoginDTO;
 import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.repository.UserRepository;
@@ -73,8 +74,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
-
+    public void login(@RequestBody LoginDTO loginDTO){
+//         userRepository.findUserByUsername(loginDTO.getUsername());
     }
 
     @PutMapping()
