@@ -4,6 +4,7 @@ import com.mj.wims.converter.UserDTOToUserConverter;
 import com.mj.wims.dto.LoginDTO;
 import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
+import com.mj.wims.model.UserCredentials;
 import com.mj.wims.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -74,8 +75,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginDTO loginDTO){
-//         userRepository.findUserByUsername(loginDTO.getUsername());
+    public void login(@RequestBody UserCredentials userCredentials){
     }
 
     @PutMapping()
