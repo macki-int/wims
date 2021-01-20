@@ -36,11 +36,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/users/login").permitAll()
-                .and()
-                .logout().permitAll()
-                .and()
+//                .formLogin()
+//                .loginPage("/users/login").permitAll()
+//                .and()
+//                .logout().permitAll()
+//                .and()
                 .csrf().disable();
 
 //        http.authorizeRequests().antMatchers("/**").permitAll();
@@ -61,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 return userRepository.findUserByUsername(username);
             }
-        }).passwordEncoder(passwordEncoder());
+        });
+//        }).passwordEncoder(passwordEncoder());
     }
 }
