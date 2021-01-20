@@ -1,6 +1,7 @@
 package com.mj.wims.config;
 
 import com.mj.wims.repository.UserRepository;
+import com.mj.wims.service.LoginFilter;
 import com.mj.wims.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
