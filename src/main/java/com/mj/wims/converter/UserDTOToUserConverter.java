@@ -13,8 +13,8 @@ public class UserDTOToUserConverter {
         user.setUsername(userDTO.getUsername());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
-//        user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
+//        user.setPassword(userDTO.getPassword());
         user.setRole(userDTO.getRole());
         user.setActive(true);
 

@@ -14,6 +14,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.spi.service.contexts.SecurityContext;
+
+import java.util.List;
+
+import static java.util.Collections.singletonList;
 
 
 @Configuration
@@ -61,10 +71,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-                .antMatchers("/swagger-ui/").hasRole("ADMIN")
-                .antMatchers("/v2/api-docs").hasRole("ADMIN")
-                .antMatchers("/webjars/**").hasRole("ADMIN")
-                .antMatchers("/swagger-resources/**").hasRole("ADMIN")
+                .antMatchers("/swagger-ui/").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -79,4 +89,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 //        auth.userDetailsService(customUserDetailsService);
     }
+
+
 }
