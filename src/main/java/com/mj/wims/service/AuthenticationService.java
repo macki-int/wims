@@ -14,8 +14,8 @@ import static java.util.Collections.emptyList;
 
 public class AuthenticationService {
 
-    static final long EXPIRATIONTIME = 864_000_00;
-    static final String SIGNINGKEY = "signingKey";
+    static final long EXPIRATIONTIME = 360_000_00;
+    static final String SIGNINGKEY = "asffgfg";
 //    static final String BEARER_PREFIX = "Bearer";
 
     static public void addJWTToken(HttpServletResponse response, String username) {
