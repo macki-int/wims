@@ -12,5 +12,8 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     @Query("SELECT r FROM Reservation r JOIN r.user u WHERE inventory_id = ?1 ORDER BY u.username ASC")
-    List<Object> findAllReservationsByInventoriesId(Long inventoryId);
+    List<Object> findAllReservationsByInventoryId(Long inventoryId);
+
+//    @Query("SELECT r FROM Reservation r JOIN r.user u WHERE inventory_id = ?1 ORDER BY u.username ASC")
+    List<Object> findAllByUserId(Long userId);
 }
