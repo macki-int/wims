@@ -80,10 +80,9 @@ public class UserController {
 
     @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody User user) {
-
+            //TODO change User on UserDTO
         if(userRepository.existsById(user.getId())){
             Optional<User> userOptional = userRepository.findById(user.getId());
-            //TODO passwordEncoder
             try {
                 userRepository.save(user);
                 return ResponseEntity.ok().body(user);
