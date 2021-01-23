@@ -37,10 +37,16 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/inventories/{id}")
-    public ResponseEntity<?> findAllReservationsByInventoriesId(@PathVariable Long id){
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> findAllByUserId(@PathVariable Long id){
 
-            return ResponseEntity.ok().body(reservationRepository.findAllReservationsByInventoriesId(id));
+        return ResponseEntity.ok().body(reservationRepository.findAllByUserId(id));
+    }
+
+    @GetMapping("/inventories/{id}")
+    public ResponseEntity<?> findAllReservationsByInventoryId(@PathVariable Long id){
+
+            return ResponseEntity.ok().body(reservationRepository.findAllReservationsByInventoryId(id));
     }
 
     @PostMapping()
