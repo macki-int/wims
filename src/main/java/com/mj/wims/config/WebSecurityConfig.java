@@ -57,11 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 ////        http.authorizeRequests().antMatchers("/**").permitAll();
 //    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -74,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users/*").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/users/*").hasRole("ADMIN")
+                .antMatchers("/products/**").permitAll()
                 .antMatchers("/swagger-ui/").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/webjars/**").permitAll()
@@ -93,5 +89,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.userDetailsService(customUserDetailsService);
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }
