@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/username")
-    public ResponseEntity<?> findByNick(@RequestBody User user) {
+    public ResponseEntity<?> findByUsername(@RequestBody User user) {
         Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
 
         if (userOptional.isPresent()) {
