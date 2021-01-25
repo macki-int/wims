@@ -1,3 +1,4 @@
 # wims
-Warehouse Inventory Management Systems 
+Warehouse Inventory Management System
+
 (backend for wims-client)
