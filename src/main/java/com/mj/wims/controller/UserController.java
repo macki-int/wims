@@ -77,13 +77,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody UserCredentials userCredentials){
+    public void login(@RequestBody UserCredentials userCredentials) {
     }
 
     @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody User user) {
-            //TODO change User on UserDTO
-        if(userRepository.existsById(user.getId())){
+        //TODO change User on UserDTO
+        if (userRepository.existsById(user.getId())) {
             Optional<User> userOptional = userRepository.findById(user.getId());
             try {
                 userRepository.save(user);
@@ -99,7 +99,7 @@ public class UserController {
     @PatchMapping("/password/{id}")
     public ResponseEntity<?> resetUserPasswordById(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
         Optional<User> userOptional = userRepository.findById(id);
-
+        //TODO add admin password verification
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
@@ -139,10 +139,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
 
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             try {
                 userRepository.delete(userOptional.get());
                 return ResponseEntity.ok().build();
