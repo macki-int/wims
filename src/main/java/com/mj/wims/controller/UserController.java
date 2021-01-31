@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -92,6 +93,20 @@ public class UserController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("/password/{id}")
+    public ResponseEntity<?> resetUserPasswordById(@PathVariable Long id, @RequestBody String password) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setPassword(new BCryptPasswordEncoder().encode(password));
+            userRepository.save(user);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/activate/{id}")
