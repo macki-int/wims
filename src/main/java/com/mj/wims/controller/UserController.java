@@ -101,7 +101,8 @@ public class UserController {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setPassword(new BCryptPasswordEncoder().encode(password));
+//            user.setPassword(new BCryptPasswordEncoder().encode(password));
+            user.setPassword(password);
             userRepository.save(user);
             return ResponseEntity.ok().build();
         }
