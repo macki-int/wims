@@ -2,6 +2,7 @@ package com.mj.wims.controller;
 
 import com.mj.wims.converter.UserDTOToUserConverter;
 import com.mj.wims.dto.LoginDTO;
+import com.mj.wims.dto.PasswordDTO;
 import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.model.UserCredentials;
@@ -96,13 +97,12 @@ public class UserController {
     }
 
     @PatchMapping("/password/{id}")
-    public ResponseEntity<?> resetUserPasswordById(@PathVariable Long id, @RequestBody String password) {
+    public ResponseEntity<?> resetUserPasswordById(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
         Optional<User> userOptional = userRepository.findById(id);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-//            user.setPassword(new BCryptPasswordEncoder().encode(password));
-            user.setPassword(password);
+            user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
             userRepository.save(user);
             return ResponseEntity.ok().build();
         }
