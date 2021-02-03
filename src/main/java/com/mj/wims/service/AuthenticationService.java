@@ -2,6 +2,7 @@ package com.mj.wims.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
@@ -13,10 +14,10 @@ import static java.util.Collections.emptyList;
 
 
 public class AuthenticationService {
-
-    static final long EXPIRATIONTIME = 360_000_00;
-    static final String SIGNINGKEY = "asffgfg";
-//    static final String BEARER_PREFIX = "Bearer";
+    @Value("${jwt.expirationTime}")
+    static long EXPIRATIONTIME;
+    @Value("${jwt.secretKey}")
+    static  String SIGNINGKEY;
 
     static public void addJWTToken(HttpServletResponse response, String username) {
         String JwtToken = Jwts.builder().setSubject(username)
