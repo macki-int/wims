@@ -14,10 +14,10 @@ import static java.util.Collections.emptyList;
 
 
 public class AuthenticationService {
-    @Value("${jwt.expirationTime}")
-    static long EXPIRATIONTIME;
-    @Value("${jwt.secretKey}")
-    static  String SIGNINGKEY;
+//    @Value("${jwt.expirationTime}")
+    static final long EXPIRATIONTIME = 600000;
+//    @Value("${jwt.secretKey}")
+    static final String SIGNINGKEY ="asffgfg";
 
     static public void addJWTToken(HttpServletResponse response, String username) {
         String JwtToken = Jwts.builder().setSubject(username)
