@@ -15,7 +15,7 @@ import static java.util.Collections.emptyList;
 
 public class AuthenticationService {
 //    @Value("${jwt.expirationTime}")
-    static final long EXPIRATIONTIME = 600000;
+    static final long EXPIRATIONTIME = 1_080_000;
 //    @Value("${jwt.secretKey}")
     static final String SIGNINGKEY ="asffgfg";
 
