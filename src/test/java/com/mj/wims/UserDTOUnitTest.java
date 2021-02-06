@@ -18,15 +18,6 @@ public class UserDTOUnitTest {
     private UserDTO userDTO;
     private User user;
 
-
-//    @BeforeEach
-//    public void setUp() {
-//        UserDTO userDTO = new UserDTO();
-//
-//
-//    }
-
-
     @Test
     public void whenConvertUserDTOtoUser() {
         //BEFORE
