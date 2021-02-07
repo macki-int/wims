@@ -12,24 +12,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserDTOUnitTest {
+class UserDTOConverterTest {
     private UserDTO userDTO;
-    private User user;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @BeforeEach
     void init() {
         bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        user = new User();
         userDTO = getSamplerUserDTO();
     }
 
     private UserDTO getSamplerUserDTO() {
         UserDTO userDTO = new UserDTO();
+
         userDTO.setUsername("adamn");
         userDTO.setFirstName("Adam");
         userDTO.setLastName("Nowak");
-        userDTO.setPassword("test"); //$2y$12$U2WZxQa/HBOwF2nWbFPeYuRHM.BWX.XXN3tlhg.Fhu4nzGk5cRqC. (BCrypt)
+        userDTO.setPassword("test");
         userDTO.setRole(RoleEnum.ROLE_ADMIN);
         return userDTO;
     }
@@ -37,6 +36,7 @@ class UserDTOUnitTest {
     @Test
     void whenConvertUserDTOtoUser() {
         //BEFORE
+        User user;
 
         //WHEN
         user = UserDTOToUserConverter.convert(userDTO);
