@@ -97,7 +97,7 @@ public class UserController {
     }
 
     @PatchMapping("/password/{id}")
-    public ResponseEntity<?> resetUserPasswordById(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
+    public ResponseEntity<?> changeUserPasswordById(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
         Optional<User> userOptional = userRepository.findById(id);
         //TODO add admin password verification
         if (userOptional.isPresent()) {
