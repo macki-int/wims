@@ -7,6 +7,7 @@ import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.model.UserCredentials;
 import com.mj.wims.repository.UserRepository;
+import com.mj.wims.service.PasswordCompareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -102,9 +103,16 @@ public class UserController {
         //TODO add admin password verification
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
-            userRepository.save(user);
-            return ResponseEntity.ok().build();
+
+            PasswordCompareService passwordCompareService = new PasswordCompareService() ;
+
+            if(passwordCompareService.comparePassword(user.getPassword(), passwordDTO.getOldPassword())) {
+                user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
+                userRepository.save(user);
+                return ResponseEntity.ok().build();
+            }
+
+            return ResponseEntity.badRequest().build();
         }
 
         return ResponseEntity.noContent().build();
