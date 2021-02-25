@@ -124,6 +124,29 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/password/{id}")
+    public ResponseEntity<?> resetUserPassword(@RequestParam Long id, @RequestBody PasswordDTO passwordDTO) {
+
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            PasswordCompareServiceImpl passwordCompareServiceImpl = new PasswordCompareServiceImpl();
+            Boolean equalPassword = passwordCompareServiceImpl.comparePassword(user.getPassword(), passwordDTO.getOldPassword());
+
+            if (equalPassword) {
+                user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getNewPassword()));
+                userRepository.save(user);
+                return ResponseEntity.ok().build();
+            }
+
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.noContent().build();
+    }
+
     @PatchMapping("/activate/{id}")
     public ResponseEntity<?> activateById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
