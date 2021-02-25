@@ -1,18 +1,18 @@
 package com.mj.wims.dto;
 
 public class PasswordDTO {
-    private String password;
+    private String newPassword;
     private String oldPassword;
 
     public PasswordDTO() {
     }
 
-    public String getPassword() {
-        return password;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getOldPassword() {
