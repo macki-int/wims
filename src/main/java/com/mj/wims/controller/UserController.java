@@ -6,14 +6,17 @@ import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.model.UserCredentials;
 import com.mj.wims.repository.UserRepository;
+import com.mj.wims.service.AuthenticationService;
 import com.mj.wims.service.PasswordCompareServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
@@ -96,16 +99,22 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PatchMapping("/password/{userName}")
-    public ResponseEntity<?> changeUserPasswordById(@PathVariable String userName, @RequestBody PasswordDTO passwordDTO) {
+    @PatchMapping("/password")
+//    @PatchMapping("/password/{userName}")
+//    public ResponseEntity<?> changeUserPasswordById(@RequestHeader(value="Authorization") String token, @RequestBody PasswordDTO passwordDTO) {
+    public ResponseEntity<?> changeUserPasswordById(HttpServletRequest request, @RequestBody PasswordDTO passwordDTO) {
+        Authentication authentication = AuthenticationService.getAuthentication(request);
+        String userName = authentication.getName();
+
         Optional<User> userOptional = userRepository.findByUsername(userName);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            PasswordCompareServiceImpl passwordCompareService = new PasswordCompareServiceImpl() ;
+            PasswordCompareServiceImpl passwordCompareServiceImpl = new PasswordCompareServiceImpl();
+            Boolean equalPassword = passwordCompareServiceImpl.comparePassword(user.getPassword(), passwordDTO.getOldPassword());
 
-            if(passwordCompareService.comparePassword(user.getPassword(), passwordDTO.getOldPassword())) {
+            if (equalPassword) {
                 user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getNewPassword()));
                 userRepository.save(user);
                 return ResponseEntity.ok().build();
