@@ -100,8 +100,6 @@ public class UserController {
     }
 
     @PatchMapping("/password")
-//    @PatchMapping("/password/{userName}")
-//    public ResponseEntity<?> changeUserPasswordById(@RequestHeader(value="Authorization") String token, @RequestBody PasswordDTO passwordDTO) {
     public ResponseEntity<?> changeUserPassword(HttpServletRequest request, @RequestBody PasswordDTO passwordDTO) {
         Authentication authentication = AuthenticationService.getAuthentication(request);
         String userName = authentication.getName();
