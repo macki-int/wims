@@ -1,13 +1,12 @@
 package com.mj.wims.controller;
 
 import com.mj.wims.converter.UserDTOToUserConverter;
-import com.mj.wims.dto.LoginDTO;
 import com.mj.wims.dto.PasswordDTO;
 import com.mj.wims.dto.UserDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.model.UserCredentials;
 import com.mj.wims.repository.UserRepository;
-import com.mj.wims.service.PasswordCompareService;
+import com.mj.wims.service.PasswordCompareServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -97,17 +96,17 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @PatchMapping("/password/{id}")
-    public ResponseEntity<?> changeUserPasswordById(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
-        Optional<User> userOptional = userRepository.findById(id);
-        //TODO add admin password verification
+    @PatchMapping("/password/{userName}")
+    public ResponseEntity<?> changeUserPasswordById(@PathVariable String userName, @RequestBody PasswordDTO passwordDTO) {
+        Optional<User> userOptional = userRepository.findByUsername(userName);
+
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            PasswordCompareService passwordCompareService = new PasswordCompareService() ;
+            PasswordCompareServiceImpl passwordCompareService = new PasswordCompareServiceImpl() ;
 
             if(passwordCompareService.comparePassword(user.getPassword(), passwordDTO.getOldPassword())) {
-                user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getPassword()));
+                user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getNewPassword()));
                 userRepository.save(user);
                 return ResponseEntity.ok().build();
             }
