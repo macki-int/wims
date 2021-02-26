@@ -69,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/users/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/password").hasAnyRole("USER", "ADMIN")
                 //.antMatchers("/products/**").permitAll()
                 .antMatchers("/swagger-ui/").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
