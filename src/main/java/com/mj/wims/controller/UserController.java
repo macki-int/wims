@@ -57,7 +57,7 @@ public class UserController {
         if (userOptional.isPresent()) {
             UserWithoutPasswordDTO userWithoutPasswordDTO = UserToUserWithoutPasswordDTOConverter.convert(userOptional.get());
 
-            return ResponseEntity.ok().body(userOptional);
+            return ResponseEntity.ok().body(userWithoutPasswordDTO);
         }
 
         return ResponseEntity.noContent().build();
