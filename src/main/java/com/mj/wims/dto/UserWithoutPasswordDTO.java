@@ -2,14 +2,14 @@ package com.mj.wims.dto;
 
 import com.mj.wims.model.RoleEnum;
 
-public class UserNameWithoutPasswordDTO {
+public class UserWithoutPasswordDTO {
     private String username;
     private String firstName;
     private String lastName;
     private RoleEnum role;
     private Boolean active;
 
-    public UserNameWithoutPasswordDTO() {
+    public UserWithoutPasswordDTO() {
     }
 
     public String getUsername() {
