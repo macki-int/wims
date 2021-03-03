@@ -48,11 +48,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/username")
-    public ResponseEntity<?> findByUsername(@RequestBody User user) {
-        Optional<User> userOptional = userRepository.findByUsername(user.getUsername());
+    @GetMapping("/{username}")
+    public ResponseEntity<?> findByUsername(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent()) {
+
             return ResponseEntity.ok().body(userOptional);
         }
 

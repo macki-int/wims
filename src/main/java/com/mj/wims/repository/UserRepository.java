@@ -1,6 +1,7 @@
 package com.mj.wims.repository;
 
 import com.mj.wims.dto.UserDTO;
+import com.mj.wims.dto.UserNameWithoutPasswordDTO;
 import com.mj.wims.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
