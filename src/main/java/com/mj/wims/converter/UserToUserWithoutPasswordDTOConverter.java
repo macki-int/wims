@@ -4,8 +4,7 @@ import com.mj.wims.dto.UserWithoutPasswordDTO;
 import com.mj.wims.model.User;
 
 public class UserToUserWithoutPasswordDTOConverter {
-
-    public UserWithoutPasswordDTO convert(User user) {
+    public static UserWithoutPasswordDTO convert(User user) {
         UserWithoutPasswordDTO userWithoutPasswordDTO = new UserWithoutPasswordDTO();
 
         userWithoutPasswordDTO.setUsername(user.getUsername());
