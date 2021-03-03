@@ -1,8 +1,10 @@
 package com.mj.wims.controller;
 
 import com.mj.wims.converter.UserDTOToUserConverter;
+import com.mj.wims.converter.UserToUserWithoutPasswordDTOConverter;
 import com.mj.wims.dto.PasswordDTO;
 import com.mj.wims.dto.UserDTO;
+import com.mj.wims.dto.UserWithoutPasswordDTO;
 import com.mj.wims.model.User;
 import com.mj.wims.model.UserCredentials;
 import com.mj.wims.repository.UserRepository;
@@ -53,6 +55,7 @@ public class UserController {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent()) {
+            UserWithoutPasswordDTO userWithoutPasswordDTO = UserToUserWithoutPasswordDTOConverter.convert(userOptional.get());
 
             return ResponseEntity.ok().body(userOptional);
         }
