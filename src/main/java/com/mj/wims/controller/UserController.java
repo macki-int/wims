@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/logged/{username}")
-    public ResponseEntity<?> findByUsername(String username) {
+    public ResponseEntity<?> findByUsername(@PathVariable String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isPresent()) {
