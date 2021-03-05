@@ -50,7 +50,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/logged/{username}")
     public ResponseEntity<?> findByUsername(String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
 
