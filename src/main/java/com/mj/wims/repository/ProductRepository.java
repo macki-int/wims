@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 
     //withInactiveValue == true and withZeroValue == true
-    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
+    @Query("SELECT i FROM Inventory i JOIN i.product p JOIN i.reservation r WHERE product_type_id = ?1 ORDER BY p.id ASC")
     List<Object> findAllProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == false and withZeroValue == true
