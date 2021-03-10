@@ -23,8 +23,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //withInactiveValue == true and withZeroValue == true
 //    Select i from Inventory i,Category c INNER JOIN i.product ip INNER JOIN c.products cp where ip = cp and c.id=?
     //select * from products join inventories on inventories.product_id = products.id left join reservations on reservations.inventory_id = inventories.id
-//    @Query("SELECT i FROM Inventory i JOIN i.reservation r WHERE product_type_id = ?1 ORDER BY r.id ASC")
-    @Query("SELECT p FROM Product p JOIN p.Inventory i ON i.product_id = p.id")
+//    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
+    @Query("SELECT r FROM Reservation r LEFT JOIN r.inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
     List<Object> findAllProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == false and withZeroValue == true
