@@ -1,6 +1,7 @@
 package com.mj.wims.repository;
 
 import com.mj.wims.model.Product;
+import com.mj.wims.model.ProductInventoryReservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -29,15 +30,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
     List<Object> findAllProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
-    //withInactiveValue == false and withZeroValue == true
     @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1  AND p.active = true ORDER BY p.id ASC")
     List<Object> findActiveProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
-    //    select *, (SELECT COUNT(*) FROM reservations WHERE reservations.inventory_id=inventories.id) from products join inventories on inventories.product_id = products.id;
-//        @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 AND p.active = true AND i.quantity > 0 ORDER BY p.id ASC")
-    @Query("SELECT i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id) FROM Inventory i JOIN i.product p WHERE product_type_id = ?1")
+    //withInactiveValue == false and withZeroValue == true
 
-//    @Query("SELECT i, r FROM Reservation r RIGHT JOIN r.inventory i JOIN i.product p WHERE product_type_id = ?1 AND p.active = true AND i.quantity > 0 ORDER BY p.id ASC")
+//    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 AND p.active = true AND i.quantity > 0 ORDER BY p.id ASC")
+//    select *, (SELECT COUNT(*) FROM reservations WHERE reservations.inventory_id=inventories.id) from products join inventories on inventories.product_id = products.id;
+//    select * FROM inventories left join reservations on inventories.id=reservations.inventory_id group by inventories.id, reservations.id
+//    @Query("SELECT i, (SELECT COUNT(r.id) FROM Reservation r WHERE r.inventory.id = i.id) FROM Inventory i")
+    @Query("SELECT new com.mj.wims.model.ProductInventoryReservation(i, p, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id) ) FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1")
     List<Object> findActiveProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == false and withZeroValue == false
