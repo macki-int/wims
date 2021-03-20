@@ -5,6 +5,7 @@ import com.mj.wims.repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -20,18 +21,21 @@ public class InventoryController {
         this.inventoryRepository = inventoryRepository;
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll() {
 
         return ResponseEntity.ok().body(inventoryRepository.findAll());
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/quantities")
     public ResponseEntity<?> findAllWithQuantity() {
 
         return ResponseEntity.ok().body(inventoryRepository.findAllWithQuantity());
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
@@ -43,12 +47,14 @@ public class InventoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/products/{id}")
     public ResponseEntity<?> findAllByProductId(@PathVariable Long id) {
 
         return ResponseEntity.ok().body(inventoryRepository.findAllByProductId(id));
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<?> createInventory(@RequestBody Inventory inventory) {
 
@@ -62,6 +68,7 @@ public class InventoryController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping()
     public ResponseEntity<?> updateInventory(@RequestBody Inventory inventory) {
         if(inventoryRepository.existsById(inventory.getId())){
@@ -76,6 +83,7 @@ public class InventoryController {
         return ResponseEntity.notFound().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/{id}")
     public ResponseEntity<?> setQuantity(@PathVariable Long id, @RequestBody Integer quantity) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
@@ -91,6 +99,7 @@ public class InventoryController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
