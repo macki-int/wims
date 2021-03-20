@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -32,13 +33,14 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll() {
 
         return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -50,6 +52,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/logged/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
@@ -63,6 +66,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
@@ -87,6 +91,7 @@ public class UserController {
     public void login(@RequestBody UserCredentials userCredentials) {
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         //TODO change User on UserDTO
@@ -103,6 +108,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PatchMapping("/password")
     public ResponseEntity<?> changeUserPassword(HttpServletRequest request, @RequestBody PasswordDTO passwordDTO) {
         Authentication authentication = AuthenticationService.getAuthentication(request);
@@ -128,6 +134,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/password/{id}")
     public ResponseEntity<?> resetUserPassword(@RequestParam Long id, @RequestBody PasswordDTO passwordDTO) {
 
@@ -151,6 +158,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/activate/{id}")
     public ResponseEntity<?> activateById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -165,6 +173,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<?> deactivateById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -179,6 +188,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
