@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -24,11 +25,13 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok().body(productRepository.findAll(Sort.by(Sort.Direction.ASC, "name")));
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/product-types/{id}")
     public ResponseEntity<?> findProductsByProductTypeId(@PathVariable Long id,
                                                          @RequestParam (defaultValue = "false") boolean withZeroValue,
@@ -46,11 +49,13 @@ public class ProductController {
         return ResponseEntity.ok().body(productRepository.findActiveProductsAndNotZeroQuantityByProductTypeId(id));
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/product-types/max-update-date/{id}")
     public ResponseEntity<?> findMaxUpdateDateByProductType(@PathVariable Long id) {
         return ResponseEntity.ok().body(productRepository.findMaxUpdateDateByProductType(id));
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
@@ -62,6 +67,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) {
         Optional<String> stringOptional = productRepository.findByName(productDTO.getName());
@@ -82,6 +88,7 @@ public class ProductController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
+    @Secured("ADMIN")
     @PutMapping()
     public ResponseEntity<?> updateProduct(@RequestBody Product product) {
         if (productRepository.existsById(product.getId())) {
@@ -96,6 +103,7 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/activate/{id}")
     public ResponseEntity<?> activateById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
@@ -111,6 +119,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<?> deactivateById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
@@ -125,6 +134,7 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
