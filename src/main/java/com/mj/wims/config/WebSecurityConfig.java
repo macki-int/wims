@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -56,11 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/password").hasAnyRole("USER", "ADMIN")
-                //.antMatchers("/products/**").permitAll()
+//                .antMatchers(HttpMethod.PUT, "/products").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PUT, "/users/*").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PUT, "/users/password").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/products/*").permitAll()
                 .antMatchers("/swagger-ui/").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/webjars/**").permitAll()
