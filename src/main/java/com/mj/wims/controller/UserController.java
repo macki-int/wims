@@ -19,7 +19,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
@@ -33,14 +35,14 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll() {
 
         return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -52,7 +54,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping("/logged/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
@@ -66,7 +68,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
@@ -91,7 +93,7 @@ public class UserController {
     public void login(@RequestBody UserCredentials userCredentials) {
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         //TODO change User on UserDTO
@@ -108,7 +110,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PatchMapping("/password")
     public ResponseEntity<?> changeUserPassword(HttpServletRequest request, @RequestBody PasswordDTO passwordDTO) {
         Authentication authentication = AuthenticationService.getAuthentication(request);
@@ -134,20 +136,20 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PatchMapping("/password/{id}")
-    public ResponseEntity<?> resetUserPassword(@RequestParam Long id, @RequestBody PasswordDTO passwordDTO) {
-
+    public ResponseEntity<?> resetUserPassword(@PathVariable Long id, @RequestBody Map<String, String> newPassword) {
+        System.out.println(newPassword);
         Optional<User> userOptional = userRepository.findById(id);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            PasswordCompareServiceImpl passwordCompareServiceImpl = new PasswordCompareServiceImpl();
-            Boolean equalPassword = passwordCompareServiceImpl.comparePassword(user.getPassword(), passwordDTO.getOldPassword());
+//            PasswordCompareServiceImpl passwordCompareServiceImpl = new PasswordCompareServiceImpl();
+//            Boolean equalPassword = passwordCompareServiceImpl.comparePassword(user.getPassword(), passwordDTO.getOldPassword());
 
-            if (equalPassword) {
-                user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getNewPassword()));
+            if (newPassword.size() > 0) {
+                user.setPassword(new BCryptPasswordEncoder().encode(newPassword.get("newPassword")));
                 userRepository.save(user);
                 return ResponseEntity.ok().build();
             }
@@ -158,7 +160,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PatchMapping("/activate/{id}")
     public ResponseEntity<?> activateById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -173,7 +175,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<?> deactivateById(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
@@ -188,7 +190,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         Optional<User> userOptional = userRepository.findById(id);
