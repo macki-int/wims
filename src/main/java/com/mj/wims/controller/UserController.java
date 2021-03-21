@@ -139,7 +139,6 @@ public class UserController {
     @RolesAllowed("ROLE_ADMIN")
     @PatchMapping("/password/{id}")
     public ResponseEntity<?> resetUserPassword(@PathVariable Long id, @RequestBody Map<String, String> newPassword) {
-        System.out.println(newPassword);
         Optional<User> userOptional = userRepository.findById(id);
 
         if (userOptional.isPresent()) {
