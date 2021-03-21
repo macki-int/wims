@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
@@ -21,14 +22,14 @@ public class ReservationController {
         this.reservationRepository = reservationRepository;
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll(){
 
         return ResponseEntity.ok().body(reservationRepository.findAll());
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
@@ -40,21 +41,21 @@ public class ReservationController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/users/{id}")
     public ResponseEntity<?> findAllByUserId(@PathVariable Long id){
 
         return ResponseEntity.ok().body(reservationRepository.findAllByUserId(id));
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/inventories/{id}")
     public ResponseEntity<?> findAllReservationsByInventoryId(@PathVariable Long id){
 
             return ResponseEntity.ok().body(reservationRepository.findAllReservationsByInventoryId(id));
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PostMapping()
     public ResponseEntity<?> createReservation(@RequestBody Reservation reservation) {
 
@@ -68,7 +69,7 @@ public class ReservationController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PutMapping()
     public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation){
         if (reservationRepository.existsById(reservation.getId())) {
@@ -82,7 +83,7 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id){
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
