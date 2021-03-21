@@ -18,8 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 @Configuration
-//@EnableGlobalMethodSecurity(securedEnabled = true)
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true,  jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-//                .antMatchers(HttpMethod.PUT, "/products").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.PATCH, "/products/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/users/*").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/users/password").hasAnyRole("USER", "ADMIN")
@@ -79,7 +79,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-//        auth.userDetailsService(customUserDetailsService);
     }
 
     @Bean
@@ -88,3 +87,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+
