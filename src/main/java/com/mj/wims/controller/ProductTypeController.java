@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
@@ -22,14 +24,14 @@ public class ProductTypeController {
         this.productTypeRepository = productTypeRepository;
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
     public ResponseEntity<?> findAll() {
 
         return ResponseEntity.ok().body(productTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "name")));
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Optional<ProductType> productTypeOptional = productTypeRepository.findById(id);
@@ -41,7 +43,7 @@ public class ProductTypeController {
         return ResponseEntity.noContent().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PostMapping()
     public ResponseEntity<?> createProductType(@RequestBody ProductTypeDTO productTypeDTO) {
         if (productTypeDTO.getName().isEmpty()){
@@ -61,7 +63,7 @@ public class ProductTypeController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @PutMapping()
     public ResponseEntity<?> updateProductType(@RequestBody ProductType productType){
         if (productType.getName().isEmpty()){
@@ -80,7 +82,7 @@ public class ProductTypeController {
         return ResponseEntity.notFound().build();
     }
 
-    @Secured("ROLE_ADMIN")
+    @RolesAllowed("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProductType(@PathVariable Long id){
         Optional<ProductType> productTypeOptional = productTypeRepository.findById(id);
