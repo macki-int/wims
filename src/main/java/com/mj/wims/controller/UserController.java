@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +55,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed({"ADMIN", "USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/logged/{username}")
     public ResponseEntity<?> findByUsername(@PathVariable String username) {
         Optional<User> userOptional = userRepository.findByUsername(username);
