@@ -13,6 +13,7 @@ public class ProductType {
     @NotNull
     @Column(unique=true)
     private String name;
+    private Boolean calculate;
 
     public ProductType() {
     }
@@ -31,5 +32,13 @@ public class ProductType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getCalculate() {
+        return calculate;
+    }
+
+    public void setCalculate(Boolean calculate) {
+        this.calculate = calculate;
     }
 }
