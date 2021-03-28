@@ -15,8 +15,9 @@ public class ProductType {
     @NotNull
     @Column(unique=true)
     private String name;
+    @NotNull
     @Value("${some.key:true}")
-    private Boolean calculate;
+    private boolean calculate;
 
     public ProductType() {
     }
