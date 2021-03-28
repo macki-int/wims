@@ -20,8 +20,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name="product_type_id", nullable=false )
     private ProductType productType;
+    @NotNull
     @Value("${some.key:true}")
-    private Boolean active;
+    private boolean active;
 
     public Product() {
     }
