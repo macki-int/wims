@@ -1,5 +1,7 @@
 package com.mj.wims.model;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +15,7 @@ public class ProductType {
     @NotNull
     @Column(unique=true)
     private String name;
+    @Value("${some.key:true}")
     private Boolean calculate;
 
     public ProductType() {
