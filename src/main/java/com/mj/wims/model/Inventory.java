@@ -1,7 +1,10 @@
 package com.mj.wims.model;
 
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -15,6 +18,9 @@ public class Inventory {
     private Integer quantity;
     private String description;
     private LocalDate updateDate;
+    @NotNull
+    @Value("${some.key:false}")
+    private Boolean mainDimension;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
@@ -68,6 +74,14 @@ public class Inventory {
 
     public void setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public boolean isMainDimension() {
+        return mainDimension;
+    }
+
+    public void setMainDimension(boolean mainDimension) {
+        this.mainDimension = mainDimension;
     }
 
     public Product getProduct() {
