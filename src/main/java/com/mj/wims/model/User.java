@@ -20,6 +20,7 @@ public class User {
     private String password;
     @NotNull
     private RoleEnum role;
+    @NotNull
     @Value("${some.key:true}")
     private Boolean active;
 
