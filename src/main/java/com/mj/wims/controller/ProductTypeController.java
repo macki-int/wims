@@ -51,6 +51,7 @@ public class ProductTypeController {
 
         ProductType productType = new ProductType();
         productType.setName(productTypeDTO.getName());
+        productType.setCalculate(productTypeDTO.getCalculate());
 
         try {
             productTypeRepository.save(productType);
