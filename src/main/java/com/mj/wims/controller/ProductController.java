@@ -122,7 +122,7 @@ public class ProductController {
     }
 
     @RolesAllowed("ROLE_ADMIN")
-    @PatchMapping("/dea/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<?> deactivateById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
 
