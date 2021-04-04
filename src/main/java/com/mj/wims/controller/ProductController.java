@@ -106,7 +106,7 @@ public class ProductController {
     }
 
     @RolesAllowed("ROLE_ADMIN")
-    @PatchMapping("/activate/{id}")
+    @PatchMapping("/act/{id}")
     public ResponseEntity<?> activateById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
 
@@ -122,7 +122,7 @@ public class ProductController {
     }
 
     @RolesAllowed("ROLE_ADMIN")
-    @PatchMapping("/deactivate/{id}")
+    @PatchMapping("/dea/{id}")
     public ResponseEntity<?> deactivateById(@PathVariable Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
 
