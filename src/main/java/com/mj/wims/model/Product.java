@@ -16,13 +16,14 @@ public class Product {
     @NotNull
     @Column(unique=true)
     private String name;
+    private String description;
 //    @ManyToOne(cascade=CascadeType.REMOVE, fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name="product_type_id", nullable=false )
     private ProductType productType;
     @NotNull
     @Value("${some.key:true}")
-    private boolean active;
+    private Boolean active;
 
     public Product() {
     }
@@ -41,6 +42,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public ProductType getProductType() {

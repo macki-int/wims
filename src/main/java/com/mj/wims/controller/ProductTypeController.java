@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -52,6 +51,7 @@ public class ProductTypeController {
 
         ProductType productType = new ProductType();
         productType.setName(productTypeDTO.getName());
+        productType.setCalculate(productTypeDTO.getCalculate());
 
         try {
             productTypeRepository.save(productType);
