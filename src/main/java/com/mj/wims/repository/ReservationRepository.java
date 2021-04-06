@@ -16,4 +16,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Query("SELECT r FROM Reservation r JOIN r.user u WHERE user_id = ?1 ORDER BY u.username ASC")
     List<Object> findAllByUserId(Long userId);
+
+    @Query("SELECT r FROM Reservation r JOIN r.user u WHERE r.stopDate < ?1 ORDER BY r.stopDate ASC")
+    List<Object> findAllByDate(String date);
 }
