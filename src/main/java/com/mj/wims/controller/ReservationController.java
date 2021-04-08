@@ -5,7 +5,6 @@ import com.mj.wims.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -27,6 +26,13 @@ public class ReservationController {
     public ResponseEntity<?> findAll(){
 
         return ResponseEntity.ok().body(reservationRepository.findAll());
+    }
+
+    @RolesAllowed("ROLE_ADMIN")
+    @GetMapping("/expire")
+    public ResponseEntity<?> findAllByDate(@RequestParam String date){
+
+        return ResponseEntity.ok().body(reservationRepository.findAllByDate(date));
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
