@@ -10,6 +10,7 @@ public class ProductDTOToProductConverter {
         Product product = new Product();
 
         product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
         product.setProductType(productDTO.getProductType());
         product.setActive(true);
 
