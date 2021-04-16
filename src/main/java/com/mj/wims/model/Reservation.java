@@ -11,7 +11,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private Integer quantity;
+    private Float quantity;
     private LocalDate startDate;
     private LocalDate stopDate;
     private String description;
@@ -33,11 +33,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public Integer getQuantity() {
+    public Float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Float quantity) {
         this.quantity = quantity;
     }
 
