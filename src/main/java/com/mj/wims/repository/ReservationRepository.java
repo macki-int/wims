@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -18,5 +19,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Object> findAllByUserId(Long userId);
 
     @Query("SELECT r FROM Reservation r JOIN r.user u WHERE r.stopDate < ?1 ORDER BY r.stopDate ASC")
-    List<Object> findAllByDate(String date);
+    List<Object> findAllByDate(LocalDate date);
 }
