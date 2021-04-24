@@ -12,7 +12,7 @@
 	<artifactId>wims</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wims</name>
-	<description>warehouse system</description>
+	<description>Warehouse Inventory Management System</description>
 
 	<properties>
 		<java.version>1.8</java.version>
