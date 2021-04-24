@@ -1,4 +1,9 @@
-FROM openjdk:jdk-11.0.10_9-alpine
-ADD target/wims-0.0.1-SNAPSHOT.jar .
-EXPOSE 40000
-CMD java -jar wims-0.0.1-SNAPSHOT.jar --envname=prod
+FROM openjdk:12-jdk-alpine
+
+WORKDIR /opt
+
+COPY target/wims-docker.jar wims.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "wims.jar"]
