@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
@@ -31,8 +33,9 @@ public class ReservationController {
     @RolesAllowed("ROLE_ADMIN")
     @GetMapping("/expire")
     public ResponseEntity<?> findAllByDate(@RequestParam String date){
+        LocalDate localDate = LocalDate.parse(date);
 
-        return ResponseEntity.ok().body(reservationRepository.findAllByDate(date));
+        return ResponseEntity.ok().body(reservationRepository.findAllByDate(localDate));
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
