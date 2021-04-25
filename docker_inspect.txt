@@ -1,0 +1,108 @@
+[
+    {
+        "Id": "sha256:7db46a71b60a98a7c694e1797023b253476e6ba6b12652e1a4464b83e58afc29",
+        "RepoTags": [
+            "wims:v1"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:79cc93c701b8c95fd1ab91a060ac3d7ba4fbbc9ccef663fdf7cc56a9f7100d92",
+        "Comment": "",
+        "Created": "2021-04-24T21:15:32.572564508Z",
+        "Container": "aba01cdc37d09a7c6fe0caaf284e117bee8dffe24a8fe510fad4dd17981d6c8c",
+        "ContainerConfig": {
+            "Hostname": "aba01cdc37d0",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "8080/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/opt/openjdk-12/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "JAVA_HOME=/opt/openjdk-12",
+                "JAVA_VERSION=12-ea+29",
+                "JAVA_URL=https://download.java.net/java/early_access/alpine/29/binaries/openjdk-12-ea+29_linux-x64-musl_bin.tar.gz",
+                "JAVA_SHA256=39c22481736ae8a054fc820ad0cc3f1d9ad3f3f00d8111775573fe6d04c18bf5"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "ENTRYPOINT [\"java\" \"-jar\" \"/wims.jar\"]"
+            ],
+            "Image": "sha256:79cc93c701b8c95fd1ab91a060ac3d7ba4fbbc9ccef663fdf7cc56a9f7100d92",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "java",
+                "-jar",
+                "/wims.jar"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "DockerVersion": "19.03.13",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "8080/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/opt/openjdk-12/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "JAVA_HOME=/opt/openjdk-12",
+                "JAVA_VERSION=12-ea+29",
+                "JAVA_URL=https://download.java.net/java/early_access/alpine/29/binaries/openjdk-12-ea+29_linux-x64-musl_bin.tar.gz",
+                "JAVA_SHA256=39c22481736ae8a054fc820ad0cc3f1d9ad3f3f00d8111775573fe6d04c18bf5"
+            ],
+            "Cmd": null,
+            "Image": "sha256:79cc93c701b8c95fd1ab91a060ac3d7ba4fbbc9ccef663fdf7cc56a9f7100d92",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "java",
+                "-jar",
+                "/wims.jar"
+            ],
+            "OnBuild": null,
+            "Labels": null
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 339752886,
+        "VirtualSize": 339752886,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/snap/docker/common/var-lib-docker/overlay2/5dd3438a25a49c8d2d65d62d5fc4842133db724c9080ce922172ba92dfb190d8/diff:/var/snap/docker/common/var-lib-docker/overlay2/7ce9eeac7d533176a11c10df6d3b01a0f16ce686296adc2106b377b064df0c6b/diff",
+                "MergedDir": "/var/snap/docker/common/var-lib-docker/overlay2/54fae3d3494154ee29ff98276272395710d032bb27e8138b2f7a5619a0bbe330/merged",
+                "UpperDir": "/var/snap/docker/common/var-lib-docker/overlay2/54fae3d3494154ee29ff98276272395710d032bb27e8138b2f7a5619a0bbe330/diff",
+                "WorkDir": "/var/snap/docker/common/var-lib-docker/overlay2/54fae3d3494154ee29ff98276272395710d032bb27e8138b2f7a5619a0bbe330/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:503e53e365f34399c4d58d8f4e23c161106cfbce4400e3d0a0357967bad69390",
+                "sha256:e10fdc20c6524cdc432915153b9a349e1489a2cd98108730bef3423636e01b12",
+                "sha256:461a993030215b9dcc141b3dcbc87405b4ee06b59bfc7cd0bce9d2734576c00b"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2021-04-24T23:15:32.70645913+02:00"
+        }
+    }
+]
