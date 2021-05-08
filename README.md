@@ -26,15 +26,15 @@ Zarządzanie stanami magazynowymi produktów
 ---
 
 ## <img width="15px" height="15px" src="https://i.imgur.com/hx2bbEi.png" alt="Function"> Function <a name = "function"></a>
-- logowanie/wylogowywanie z systemu
-- tworzenie kategorii wyrobów
-- dodawanie/usuwanie wyrobów
-- przypisanie wyrobu do kategorii
-- aktywacja/dezaktywacja wyrobu
-- dodawanie stanów magazynowych
-- dodawanie/usuwanie rezerwacji wyrobów na określony czas
-- dodawanie/usuwanie użytkownków oraz nadawanie im uprawnień
-- przegląd wprowadzonych rezerwacji
+- authentication/authorization
+- add/remove products category
+- add/remove products
+- setting the product category
+- activation/deactivation of product
+- add/remove products inventory
+- add/remove the products reservations with deadline
+- add/remove users and set privileges
+- list of all reservations
 
 ---
 ## <img width="15px" height="15px" src="https://i.imgur.com/v3vWn54.png" alt="Tools"> Used tools and libs <a name = "tools"></a>
