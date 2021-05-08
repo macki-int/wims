@@ -10,11 +10,10 @@ Zarządzanie stanami magazynowymi produktów
 (backend for wims-client)
 </div>
 <div align="left">
-#Spring Boot
-#Spring Security
 
 #DB Postgresql
 ## <img width="15px" height="15px" src="https://i.imgur.com/v3vWn54.png" alt="Tools"> Used tools and libs <a name = "tools"></a>
 ### Main tools
 - [Java OpenJDK](https://openjdk.java.net/) - Java JDK
 - [Spring Boot](https://spring.io/) - Spring Framework
+- [PostgreSQL](https://www.postgresql.org/) - Database Server
