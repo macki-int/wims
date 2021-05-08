@@ -11,7 +11,32 @@ Zarządzanie stanami magazynowymi produktów
 (backend)
 </div>
 <div align="left">
+<div align="left">
 
+## <img width="15px" height="15px" src="https://i.imgur.com/JSD4BhW.png" alt="Content"> Table of Contents
+- [Status](#status)
+- [Function](#function)
+- [How to start that app](#start)
+- [Used tools and libs](#tools)
+---
+
+## <img width="15px" height="15px" src="https://i.imgur.com/ZpOiTNt.png" alt="Status"> Status <a name = "status"></a>
+<img width="180px" height="38px" src="https://i.imgur.com/ASft06L.png" alt="Under development logo">
+
+---
+
+## <img width="15px" height="15px" src="https://i.imgur.com/hx2bbEi.png" alt="Function"> Function <a name = "function"></a>
+- logowanie/wylogowywanie z systemu
+- tworzenie kategorii wyrobów
+- dodawanie/usuwanie wyrobów
+- przypisanie wyrobu do kategorii
+- aktywacja/dezaktywacja wyrobu
+- dodawanie stanów magazynowych
+- dodawanie/usuwanie rezerwacji wyrobów na określony czas
+- dodawanie/usuwanie użytkownków oraz nadawanie im uprawnień
+- przegląd wprowadzonych rezerwacji
+
+---
 ## <img width="15px" height="15px" src="https://i.imgur.com/v3vWn54.png" alt="Tools"> Used tools and libs <a name = "tools"></a>
 ### Main tools
 - [Java OpenJDK](https://openjdk.java.net/) - Java JDK
