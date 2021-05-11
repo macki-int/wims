@@ -1,5 +1,6 @@
 package com.mj.wims.controller;
 
+import com.mj.wims.WimsApplication;
 import com.mj.wims.converter.UserDTOToUserConverter;
 import com.mj.wims.converter.UserToUserWithoutPasswordDTOConverter;
 import com.mj.wims.dto.PasswordDTO;
@@ -10,6 +11,8 @@ import com.mj.wims.model.UserCredentials;
 import com.mj.wims.repository.UserRepository;
 import com.mj.wims.service.AuthenticationService;
 import com.mj.wims.service.PasswordCompareServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class UserController {
     private UserRepository userRepository;
+    private static final Logger LOGGER = LogManager.getLogger(WimsApplication.class);
 
     @Autowired
     public UserController(UserRepository userRepository) {
@@ -37,7 +41,7 @@ public class UserController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll() {
-
+        LOGGER.info("Get all users");
         return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
     }
 
@@ -47,9 +51,11 @@ public class UserController {
         Optional<User> userOptional = userRepository.findById(id);
 
         if (userOptional.isPresent()) {
+            LOGGER.info("Got user by id: " + id);
             return ResponseEntity.ok().body(userOptional);
         }
 
+        LOGGER.error("No find user by id: " + id);
         return ResponseEntity.noContent().build();
     }
 
@@ -61,9 +67,11 @@ public class UserController {
         if (userOptional.isPresent()) {
             UserWithoutPasswordDTO userWithoutPasswordDTO = UserToUserWithoutPasswordDTOConverter.convert(userOptional.get());
 
+            LOGGER.info("Got user by name: " + username);
             return ResponseEntity.ok().body(userWithoutPasswordDTO);
         }
 
+        LOGGER.error("No found user by name: " + username);
         return ResponseEntity.noContent().build();
     }
 
@@ -73,6 +81,7 @@ public class UserController {
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
 
         if (userOptional.isPresent()) {
+            LOGGER.error("User exist: " + userDTO);
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
@@ -80,16 +89,20 @@ public class UserController {
 
         try {
             userRepository.save(user);
+            LOGGER.info("Created user: " + userDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         } catch (Exception e) {
+            LOGGER.error(e.getStackTrace());
             e.printStackTrace();
         }
 
+        LOGGER.error("No created user: " + userDTO);
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
     @PostMapping("/login")
     public void login(@RequestBody UserCredentials userCredentials) {
+        LOGGER.info("Login user: " + userCredentials);
     }
 
     @RolesAllowed("ROLE_ADMIN")
@@ -100,12 +113,15 @@ public class UserController {
             Optional<User> userOptional = userRepository.findById(user.getId());
             try {
                 userRepository.save(user);
+                LOGGER.info("Updated user: " + user);
                 return ResponseEntity.ok().body(user);
             } catch (Exception e) {
+                LOGGER.error(e.getStackTrace());
                 e.printStackTrace();
             }
         }
 
+        LOGGER.error("No found user for update: " + user);
         return ResponseEntity.notFound().build();
     }
 
@@ -125,13 +141,16 @@ public class UserController {
 
             if (equalPassword) {
                 user.setPassword(new BCryptPasswordEncoder().encode(passwordDTO.getNewPassword()));
+                //TODO try-catch
                 userRepository.save(user);
+                LOGGER.info("Changed user password: " + passwordDTO);
                 return ResponseEntity.ok().build();
             }
-
+            LOGGER.error("No changed user password - no equal: " + passwordDTO);
             return ResponseEntity.badRequest().build();
         }
 
+        LOGGER.error("No found user for change password: " + passwordDTO);
         return ResponseEntity.noContent().build();
     }
 
@@ -148,13 +167,16 @@ public class UserController {
 
             if (newPassword.size() > 0) {
                 user.setPassword(new BCryptPasswordEncoder().encode(newPassword.get("newPassword")));
+                //TODO try-catch
                 userRepository.save(user);
+                LOGGER.info("Reset user passowr");
                 return ResponseEntity.ok().build();
             }
-
+            LOGGER.error("No reset user password");
             return ResponseEntity.badRequest().build();
         }
 
+        LOGGER.error("No found user by id for reset paswword: " + id);
         return ResponseEntity.noContent().build();
     }
 
@@ -166,6 +188,7 @@ public class UserController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setActive(true);
+            //TODO try-catch
             userRepository.save(user);
             return ResponseEntity.ok().body(user);
         }
@@ -181,6 +204,7 @@ public class UserController {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             user.setActive(false);
+            //TODO try-catch
             userRepository.save(user);
             return ResponseEntity.ok().body(user);
         }
@@ -196,14 +220,18 @@ public class UserController {
         if (userOptional.isPresent()) {
             try {
                 userRepository.delete(userOptional.get());
+                LOGGER.info("Deleted user by id: " + id);
                 return ResponseEntity.ok().build();
             } catch (Exception e) {
+                LOGGER.error(e.getStackTrace());
                 e.printStackTrace();
             }
 
+            LOGGER.error("No deleted user by id: " + id);
             return ResponseEntity.badRequest().body("Object did not delete");
         }
 
+        LOGGER.error("No found user by id for delete: " + id);
         return ResponseEntity.badRequest().build();
     }
 }
