@@ -12,6 +12,6 @@ public class WimsApplication {
     public static void main(String[] args) {
         SpringApplication.run(WimsApplication.class, args);
 
-        LOGGER.info("Stat app Wims");
+        LOGGER.info("Start app Wims");
     }
 }
