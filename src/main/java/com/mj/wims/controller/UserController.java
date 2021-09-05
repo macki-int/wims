@@ -52,6 +52,7 @@ public class UserController {
 
         if (userOptional.isPresent()) {
             LOGGER.info("Got user by id: " + id);
+            //TODO add return Users without passwords
             return ResponseEntity.ok().body(userOptional);
         }
 
