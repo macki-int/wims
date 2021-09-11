@@ -9,13 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoleEnumTest {
 
     @Test
-    void whenRoleEnumToInteger() {
+    void whenRoleEnumAdmin() {
         //BEFORE
         RoleEnum roleEnum;
+
         //WHEN
         roleEnum = RoleEnum.ROLE_ADMIN;
 
         //THEN
         assertEquals(roleEnum.ordinal(), 0);
     }
+ 
 }
