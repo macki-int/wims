@@ -19,5 +19,16 @@ class RoleEnumTest {
         //THEN
         assertEquals(roleEnum.ordinal(), 0);
     }
- 
+
+    @Test
+    void whenRoleEnumUser() {
+        //BEFORE
+        RoleEnum roleEnum;
+
+        //WHEN
+        roleEnum = RoleEnum.ROLE_USER;
+
+        //THEN
+        assertEquals(roleEnum.ordinal(), 1);
+    }
 }
