@@ -48,14 +48,14 @@ public class InventoryController {
             LOGGER.info("Got inventory by id: " + id);
             return ResponseEntity.ok().body(inventoryOptional);
         }
-
+        LOGGER.info("No find inventory by id: " + id);
         return ResponseEntity.noContent().build();
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/products/{id}")
     public ResponseEntity<?> findAllByProductId(@PathVariable Long id) {
-        LOGGER.info("Got inventory by product id: " + id);
+        LOGGER.info("Got inventories by product id: " + id);
         return ResponseEntity.ok().body(inventoryRepository.findAllByProductId(id));
     }
 
