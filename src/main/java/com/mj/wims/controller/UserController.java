@@ -41,7 +41,7 @@ public class UserController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll() {
-        LOGGER.info("Get all users");
+        LOGGER.info("Got all users");
         return ResponseEntity.ok().body(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
     }
 
