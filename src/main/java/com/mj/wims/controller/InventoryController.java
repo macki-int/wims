@@ -45,6 +45,7 @@ public class InventoryController {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
 
         if (inventoryOptional.isPresent()) {
+            LOGGER.info("Got inventory by id: " + id);
             return ResponseEntity.ok().body(inventoryOptional);
         }
 
