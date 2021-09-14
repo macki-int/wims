@@ -101,9 +101,11 @@ public class InventoryController {
             inventory.setQuantity(quantity);
             inventoryRepository.save(inventory);
 
+            LOGGER.info("Set quantity: " + quantity + " by inventory id : " + id);
             return ResponseEntity.ok().body(inventory);
         }
 
+        LOGGER.info("No set quantity: " + quantity + " by inventory id : " + id);
         return ResponseEntity.noContent().build();
     }
 
