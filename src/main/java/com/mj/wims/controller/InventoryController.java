@@ -1,7 +1,10 @@
 package com.mj.wims.controller;
 
+import com.mj.wims.WimsApplication;
 import com.mj.wims.model.Inventory;
 import com.mj.wims.repository.InventoryRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/inventories")
 public class InventoryController {
+    private static final Logger LOGGER = LogManager.getLogger(WimsApplication.class);
     private InventoryRepository inventoryRepository;
 
     @Autowired
@@ -24,7 +28,7 @@ public class InventoryController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public ResponseEntity<?> findAll() {
-
+        LOGGER.info("Get all inventories");
         return ResponseEntity.ok().body(inventoryRepository.findAll());
     }
 
