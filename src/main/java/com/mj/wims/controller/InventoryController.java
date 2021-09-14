@@ -65,11 +65,13 @@ public class InventoryController {
 
         try {
             inventoryRepository.save(inventory);
+            LOGGER.info("Created inventory: " + inventory);
             return ResponseEntity.status(HttpStatus.CREATED).body(inventory);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        LOGGER.info("No created inventory: " + inventory);
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
