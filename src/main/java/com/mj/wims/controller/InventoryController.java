@@ -81,12 +81,13 @@ public class InventoryController {
         if(inventoryRepository.existsById(inventory.getId())){
             try {
                 inventoryRepository.save(inventory);
+                LOGGER.info("Updated inventory: " + inventory);
                 return ResponseEntity.ok().body(inventory);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
+        LOGGER.info("No updated inventory: " + inventory);
         return ResponseEntity.notFound().build();
     }
 
