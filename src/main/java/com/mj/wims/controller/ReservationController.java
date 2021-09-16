@@ -58,7 +58,7 @@ public class ReservationController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/users/{id}")
     public ResponseEntity<?> findAllByUserId(@PathVariable Long id){
-
+        LOGGER.info("Got reservation by User id: " + id);
         return ResponseEntity.ok().body(reservationRepository.findAllByUserId(id));
     }
 
