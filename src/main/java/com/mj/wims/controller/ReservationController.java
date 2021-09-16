@@ -48,6 +48,7 @@ public class ReservationController {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
 
         if (reservationOptional.isPresent()){
+            LOGGER.info("Got reservation by id: " + id);
             return ResponseEntity.ok().body(reservationOptional);
         }
 
