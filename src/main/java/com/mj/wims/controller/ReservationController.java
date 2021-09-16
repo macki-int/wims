@@ -38,7 +38,7 @@ public class ReservationController {
     @GetMapping("/expire")
     public ResponseEntity<?> findAllWithExpiredDate(@RequestParam String date) {
         LocalDate localDate = LocalDate.parse(date);
-
+        LOGGER.info("Got reservation with older expire date than current date: " + date);
         return ResponseEntity.ok().body(reservationRepository.findAllByDate(localDate));
     }
 
