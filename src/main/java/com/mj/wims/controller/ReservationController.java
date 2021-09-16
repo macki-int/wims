@@ -29,14 +29,14 @@ public class ReservationController {
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<?> findAll() {
         LOGGER.info("Get all reservations");
         return ResponseEntity.ok().body(reservationRepository.findAll());
     }
 
     @RolesAllowed("ROLE_ADMIN")
     @GetMapping("/expire")
-    public ResponseEntity<?> findAllWithExpiredDate(@RequestParam String date){
+    public ResponseEntity<?> findAllWithExpiredDate(@RequestParam String date) {
         LocalDate localDate = LocalDate.parse(date);
 
         return ResponseEntity.ok().body(reservationRepository.findAllByDate(localDate));
@@ -44,10 +44,10 @@ public class ReservationController {
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
 
-        if (reservationOptional.isPresent()){
+        if (reservationOptional.isPresent()) {
             LOGGER.info("Got reservation by id: " + id);
             return ResponseEntity.ok().body(reservationOptional);
         }
@@ -57,16 +57,16 @@ public class ReservationController {
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/users/{id}")
-    public ResponseEntity<?> findAllByUserId(@PathVariable Long id){
-        LOGGER.info("Got reservation by User id: " + id);
+    public ResponseEntity<?> findAllByUserId(@PathVariable Long id) {
+        LOGGER.info("Got reservations by User id: " + id);
         return ResponseEntity.ok().body(reservationRepository.findAllByUserId(id));
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/inventories/{id}")
-    public ResponseEntity<?> findAllReservationsByInventoryId(@PathVariable Long id){
-
-            return ResponseEntity.ok().body(reservationRepository.findAllReservationsByInventoryId(id));
+    public ResponseEntity<?> findAllReservationsByInventoryId(@PathVariable Long id) {
+        LOGGER.info("Got reservations by Inventory id: " + id);
+        return ResponseEntity.ok().body(reservationRepository.findAllReservationsByInventoryId(id));
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
@@ -85,24 +85,24 @@ public class ReservationController {
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PutMapping()
-    public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation){
+    public ResponseEntity<?> updateReservation(@RequestBody Reservation reservation) {
         if (reservationRepository.existsById(reservation.getId())) {
             try {
                 reservationRepository.save(reservation);
-                 return ResponseEntity.ok().body(reservation);
+                return ResponseEntity.ok().body(reservation);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id){
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         Optional<Reservation> reservationOptional = reservationRepository.findById(id);
 
-        if(reservationOptional.isPresent()){
+        if (reservationOptional.isPresent()) {
             try {
                 reservationRepository.delete(reservationOptional.get());
                 return ResponseEntity.ok().build();
