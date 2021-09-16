@@ -36,7 +36,7 @@ public class ReservationController {
 
     @RolesAllowed("ROLE_ADMIN")
     @GetMapping("/expire")
-    public ResponseEntity<?> findAllByDate(@RequestParam String date){
+    public ResponseEntity<?> findAllWithExpiredDate(@RequestParam String date){
         LocalDate localDate = LocalDate.parse(date);
 
         return ResponseEntity.ok().body(reservationRepository.findAllByDate(localDate));
@@ -51,7 +51,7 @@ public class ReservationController {
             LOGGER.info("Got reservation by id: " + id);
             return ResponseEntity.ok().body(reservationOptional);
         }
-
+        LOGGER.info("No find reservation by id: " + id);
         return ResponseEntity.noContent().build();
     }
 
