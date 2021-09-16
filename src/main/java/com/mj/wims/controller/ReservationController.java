@@ -75,11 +75,12 @@ public class ReservationController {
 
         try {
             reservationRepository.save(reservation);
+            LOGGER.info("Created reservation: " + reservation);
             return ResponseEntity.status(HttpStatus.CREATED).body(reservation);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        LOGGER.info("No created reservation: " + reservation);
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
