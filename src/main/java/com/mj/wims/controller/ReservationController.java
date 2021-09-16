@@ -90,11 +90,13 @@ public class ReservationController {
         if (reservationRepository.existsById(reservation.getId())) {
             try {
                 reservationRepository.save(reservation);
+                LOGGER.info("Updated reservation: " + reservation);
                 return ResponseEntity.ok().body(reservation);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        LOGGER.info("No updated reservation: " + reservation);
         return ResponseEntity.notFound().build();
     }
 
