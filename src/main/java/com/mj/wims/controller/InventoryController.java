@@ -35,7 +35,7 @@ public class InventoryController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/quantities")
     public ResponseEntity<?> findAllWithQuantity() {
-
+        LOGGER.info("Got inventories with nonzero quantities");
         return ResponseEntity.ok().body(inventoryRepository.findAllWithQuantity());
     }
 
