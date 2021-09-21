@@ -25,7 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    @Query("SELECT r FROM Reservation r JOIN r.inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
     @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
-            "ORDER BY p.id ASC")
+            "ORDER BY p.name ASC")
     List<Object> findAllProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == false and withZeroValue == true
@@ -34,19 +34,19 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
-            "AND p.active = true ORDER BY p.id ASC")
+            "AND p.active = true ORDER BY p.name ASC")
     List<Object> findActiveProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == true and withZeroValue == false
     @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
-            "AND p.active = true AND i.quantity > 0 ORDER BY p.id ASC")
+            "AND p.active = true AND i.quantity > 0 ORDER BY p.name ASC")
     List<Object> findActiveProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == false and withZeroValue == false
     @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
-            "AND i.quantity > 0 ORDER BY p.id ASC")
+            "AND i.quantity > 0 ORDER BY p.name ASC")
     List<Object> findAllProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
 
 //    @Query("SELECT p FROM Product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
