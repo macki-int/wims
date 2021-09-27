@@ -26,7 +26,7 @@ public class DeliveryController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
     public ResponseEntity<?> findAll(){
-        return deliveryRepository.findAll();
+        return ResponseEntity.ok().body(deliveryRepository.findAll());
     }
 
 }
