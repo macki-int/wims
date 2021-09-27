@@ -3,12 +3,10 @@ package com.mj.wims.controller;
 import com.mj.wims.repository.DeliveryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.time.LocalDate;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,6 +24,13 @@ public class DeliveryController {
     public ResponseEntity<?> findAll(){
         return ResponseEntity.ok().body(deliveryRepository.findAll());
     }
-    
+
+    @GetMapping("/valid-date")
+    public ResponseEntity<?> getAllBeforeDeliverDate(@RequestParam String date){
+        LocalDate localDate = LocalDate.parse(date);
+
+        return ResponseEntity.ok().body(deliveryRepository.findAllBeforeDeliveryDate(localDate));
+    }
+
 
 }
