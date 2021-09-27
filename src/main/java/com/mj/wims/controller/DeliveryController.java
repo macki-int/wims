@@ -23,7 +23,7 @@ public class DeliveryController {
         this.deliveryRepository = deliveryRepository;
     }
 
-    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping()
     public ResponseEntity<?> findAll(){
         return ResponseEntity.ok().body(deliveryRepository.findAll());
