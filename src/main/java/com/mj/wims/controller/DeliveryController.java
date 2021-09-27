@@ -1,6 +1,5 @@
 package com.mj.wims.controller;
 
-import com.mj.wims.model.Delivery;
 import com.mj.wims.repository.DeliveryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,5 +26,6 @@ public class DeliveryController {
     public ResponseEntity<?> findAll(){
         return ResponseEntity.ok().body(deliveryRepository.findAll());
     }
+    
 
 }
