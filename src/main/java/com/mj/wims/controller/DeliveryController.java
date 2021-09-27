@@ -1,11 +1,15 @@
 package com.mj.wims.controller;
 
+import com.mj.wims.model.Delivery;
 import com.mj.wims.repository.DeliveryRepository;
-import com.mj.wims.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -18,5 +22,10 @@ public class DeliveryController {
         this.deliveryRepository = deliveryRepository;
     }
 
-    
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @GetMapping()
+    public List<Delivery> getAll(){
+        return deliveryRepository.findAll();
+    }
+
 }
