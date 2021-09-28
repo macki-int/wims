@@ -12,4 +12,7 @@ import java.util.List;
 public interface DeliveryRepository extends JpaRepository<Delivery, Long>{
     @Query("SELECT d FROM Delivery d JOIN d.inventory i WHERE d.dateOfDelivery < ?1 ORDER BY d.dateOfDelivery ASC")
     List<Object> findAllBeforeDeliveryDate(LocalDate date);
+
+    @Query("SELECT d FROM Delivery d WHERE inventory_id = ?1 ORDER BY d.dateOfDelivery ASC")
+    List<Object> findAllDeliveriesByInventoryId(Long inventoryId);
 }
