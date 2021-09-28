@@ -34,7 +34,7 @@ public class DeliveryController {
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
-    @GetMapping("/dateOfDelivery/{id}")
+    @GetMapping("/inventories/{id}")
     public ResponseEntity<?> findAllDeliveriesByInventoryId(@PathVariable Long id){
         return ResponseEntity.ok().body(deliveryRepository.findAllDeliveriesByInventoryId(id));
     }
