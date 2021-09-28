@@ -31,6 +31,12 @@ public class DeliveryController {
 
         return ResponseEntity.ok().body(deliveryRepository.findAllBeforeDeliveryDate(localDate));
     }
+    
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @GetMapping("/dateOfDelivery/{id}")
+    public ResponseEntity<?> findAllDeliveriesByInventoryId(@PathVariable Long id){
+        return ResponseEntity.ok().body(deliveryRepository.findAllDeliveriesByInventoryId(id));
+    }
 
 
 }
