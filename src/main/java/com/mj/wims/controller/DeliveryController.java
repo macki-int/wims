@@ -25,13 +25,14 @@ public class DeliveryController {
         return ResponseEntity.ok().body(deliveryRepository.findAll());
     }
 
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/valid-date")
     public ResponseEntity<?> getAllBeforeDeliverDate(@RequestParam String date){
         LocalDate localDate = LocalDate.parse(date);
 
         return ResponseEntity.ok().body(deliveryRepository.findAllBeforeDeliveryDate(localDate));
     }
-    
+
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/dateOfDelivery/{id}")
     public ResponseEntity<?> findAllDeliveriesByInventoryId(@PathVariable Long id){
