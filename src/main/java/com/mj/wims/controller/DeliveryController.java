@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -54,5 +55,19 @@ public class DeliveryController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
+    @RolesAllowed("ROLE_ADMIN")
+    @PutMapping()
+    public ResponseEntity<?> updateDelivery(@RequestBody Delivery delivery) {
+        if (deliveryRepository.existsById(delivery.getId())) {
+            try {
+                deliveryRepository.save(delivery);
+                return ResponseEntity.ok().body(delivery);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
 
+   
 }
