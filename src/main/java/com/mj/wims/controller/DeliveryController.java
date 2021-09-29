@@ -69,5 +69,23 @@ public class DeliveryController {
         return ResponseEntity.notFound().build();
     }
 
-   
+    @RolesAllowed("ROLE_ADMIN")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDelivery(@PathVariable Long id){
+        Optional<Delivery> deliveryOptional = deliveryRepository.findById(id);
+
+        if(deliveryOptional.isPresent()){
+            try{
+                deliveryRepository.delete(deliveryOptional.get());
+                return ResponseEntity.ok().build();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return ResponseEntity.badRequest().body("Object did not delete");
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
 }
