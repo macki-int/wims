@@ -3,16 +3,18 @@ package com.mj.wims.dto;
 import com.mj.wims.model.Inventory;
 import com.mj.wims.model.Product;
 
-public class InventoryWithReservationCounterDTO {
+public class InventoryWithReservationCounterAndDeliveryCounterDTO {
     private Inventory inventory;
     private Long reservationCounter;
+    private Long deliveryCounter;
 
-    public InventoryWithReservationCounterDTO() {
+    public InventoryWithReservationCounterAndDeliveryCounterDTO() {
     }
 
-    public InventoryWithReservationCounterDTO(Inventory inventory, Long reservationCounter) {
+    public InventoryWithReservationCounterAndDeliveryCounterDTO(Inventory inventory, Long reservationCounter, Long deliveryCounter) {
         this.inventory = inventory;
         this.reservationCounter = reservationCounter;
+        this.deliveryCounter = deliveryCounter;
     }
 
     public Inventory getInventory() {
@@ -29,5 +31,13 @@ public class InventoryWithReservationCounterDTO {
 
     public void setReservationCounter(Long reservationCounter) {
         this.reservationCounter = reservationCounter;
+    }
+
+    public Long getDeliveryCounter() {
+        return deliveryCounter;
+    }
+
+    public void setDeliveryCounter(Long deliveryCounter) {
+        this.deliveryCounter = deliveryCounter;
     }
 }
