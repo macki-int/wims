@@ -23,7 +23,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //withInactiveValue == true and withZeroValue == true
 //    Select i from Inventory i,Category c INNER JOIN i.product ip INNER JOIN c.products cp where ip = cp and c.id=?
 //    @Query("SELECT r FROM Reservation r JOIN r.inventory i JOIN i.product p WHERE product_type_id = ?1 ORDER BY p.id ASC")
-    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+
+//    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//            "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
+//            "ORDER BY p.name ASC")
+
+    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterAndDeliveryCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)," +
+            "(SELECT COUNT(d) FROM Delivery d WHERE d.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
             "ORDER BY p.name ASC")
     List<Object> findAllProductsAndZeroQuantityByProductTypeId(Long productTypeId);
@@ -32,19 +38,34 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 //    @Query("SELECT i FROM Inventory i JOIN i.product p WHERE product_type_id = ?1 AND p.active = true AND i.quantity > 0 ORDER BY p.id ASC")
 //    select *, (SELECT COUNT(*) FROM reservations WHERE reservations.inventory_id=inventories.id) from products join inventories on inventories.product_id = products.id;
 
-    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//            "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
+//            "AND p.active = true ORDER BY p.name ASC")
+
+    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterAndDeliveryCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)," +
+            "(SELECT COUNT(d) FROM Delivery d WHERE d.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
             "AND p.active = true ORDER BY p.name ASC")
     List<Object> findActiveProductsAndZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == true and withZeroValue == false
-    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//            "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
+//            "AND p.active = true AND i.quantity > 0 ORDER BY p.name ASC")
+
+    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterAndDeliveryCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)," +
+            "(SELECT COUNT(d) FROM Delivery d WHERE d.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
             "AND p.active = true AND i.quantity > 0 ORDER BY p.name ASC")
     List<Object> findActiveProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
 
     //withInactiveValue == false and withZeroValue == false
-    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)) " +
+//            "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
+//            "AND i.quantity > 0 ORDER BY p.name ASC")
+
+    @Query("SELECT new com.mj.wims.dto.InventoryWithReservationCounterAndDeliveryCounterDTO(i, (SELECT COUNT(r) FROM Reservation r WHERE r.inventory.id = i.id)," +
+            "(SELECT COUNT(d) FROM Delivery d WHERE d.inventory.id = i.id)) " +
             "FROM Inventory i LEFT JOIN Product p ON i.product.id = p.id WHERE product_type_id = ?1 " +
             "AND i.quantity > 0 ORDER BY p.name ASC")
     List<Object> findAllProductsAndNotZeroQuantityByProductTypeId(Long productTypeId);
