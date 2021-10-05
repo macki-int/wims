@@ -33,7 +33,7 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletRequest httpServletRequest,
             HttpServletResponse httpServletResponse) throws AuthenticationException, IOException {
         UserCredentials userCredentials = new ObjectMapper()
-            .readValue(httpServletRequest.getInputStream(), UserCredentials.class);
+                .readValue(httpServletRequest.getInputStream(), UserCredentials.class);
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userCredentials.getUserName(),
