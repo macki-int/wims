@@ -2,6 +2,7 @@ package com.mj.wims.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +18,7 @@ public class AuthenticationService {
     //    @Value("${jwt.expirationTime}")
     private static final long EXPIRATIONTIME = 14_400_000L;
 
-    //    @Value("${jwt.secretKey}")
+//    @Value("${jwt.secretKey}")
     private static final String SIGNINGKEY = "asffgfg";
 
     static public void addJWTToken(HttpServletResponse response, String username, SimpleGrantedAuthority role ) {
