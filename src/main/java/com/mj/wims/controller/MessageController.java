@@ -21,7 +21,7 @@ public class MessageController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<?> findAll(){
         return ResponseEntity.ok().body(messageRepository.findAll());
     };
 }
