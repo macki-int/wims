@@ -1,13 +1,10 @@
 package com.mj.wims.controller;
 
+import com.mj.wims.model.Message;
 import com.mj.wims.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -20,8 +17,19 @@ public class MessageController {
         this.messageRepository = messageRepository;
     }
 
-    @GetMapping
-    public ResponseEntity<?> findAll(){
+    @GetMapping()
+    public ResponseEntity<?> findAll() {
         return ResponseEntity.ok().body(messageRepository.findAll());
-    };
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> createMessage(@RequestBody Message message) {
+        try {
+            messageRepository.save(message);
+            return ResponseEntity.ok().body(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.badRequest().body("Object did not create");
+    }
 }
