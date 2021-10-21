@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/messages")
@@ -31,5 +33,22 @@ public class MessageController {
             e.printStackTrace();
         }
         return ResponseEntity.badRequest().body("Object did not create");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMessage(@PathVariable Long id) {
+        Optional<Message> messageOptional = messageRepository.findById(id);
+
+        if (messageOptional.isPresent()) {
+            try {
+                messageRepository.delete(messageOptional.get());
+                return ResponseEntity.ok().build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return ResponseEntity.badRequest().body("Object did not delete");
+        }
+
+        return ResponseEntity.badRequest().body("Object did not found");
     }
 }
