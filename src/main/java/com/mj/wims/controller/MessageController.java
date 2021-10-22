@@ -35,6 +35,19 @@ public class MessageController {
         return ResponseEntity.badRequest().body("Object did not create");
     }
 
+    @PutMapping()
+    public ResponseEntity<?> updateMessage(@RequestBody Message message) {
+        if (messageRepository.existsById(message.getId())) {
+            try {
+                messageRepository.save(message);
+                return ResponseEntity.ok().body(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMessage(@PathVariable Long id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
