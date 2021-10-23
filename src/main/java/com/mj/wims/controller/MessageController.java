@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
@@ -47,7 +48,8 @@ public class MessageController {
         }
         return ResponseEntity.notFound().build();
     }
-
+    
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMessage(@PathVariable Long id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
