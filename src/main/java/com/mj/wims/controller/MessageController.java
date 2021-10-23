@@ -35,7 +35,8 @@ public class MessageController {
         }
         return ResponseEntity.badRequest().body("Object did not create");
     }
-
+    
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PutMapping()
     public ResponseEntity<?> updateMessage(@RequestBody Message message) {
         if (messageRepository.existsById(message.getId())) {
@@ -48,7 +49,7 @@ public class MessageController {
         }
         return ResponseEntity.notFound().build();
     }
-    
+
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMessage(@PathVariable Long id) {
