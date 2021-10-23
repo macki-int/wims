@@ -20,6 +20,7 @@ public class MessageController {
         this.messageRepository = messageRepository;
     }
 
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping()
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok().body(messageRepository.findAll());
