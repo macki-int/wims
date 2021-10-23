@@ -25,6 +25,7 @@ public class MessageController {
         return ResponseEntity.ok().body(messageRepository.findAll());
     }
 
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PostMapping()
     public ResponseEntity<?> createMessage(@RequestBody Message message) {
         try {
@@ -35,7 +36,7 @@ public class MessageController {
         }
         return ResponseEntity.badRequest().body("Object did not create");
     }
-    
+
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @PutMapping()
     public ResponseEntity<?> updateMessage(@RequestBody Message message) {
