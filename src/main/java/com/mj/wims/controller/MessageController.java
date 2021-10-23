@@ -1,6 +1,7 @@
 package com.mj.wims.controller;
 
 import com.mj.wims.model.Message;
+import com.mj.wims.model.Reservation;
 import com.mj.wims.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,17 @@ public class MessageController {
     @GetMapping()
     public ResponseEntity<?> findAll() {
         return ResponseEntity.ok().body(messageRepository.findAll());
+    }
+
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        Optional<Message> messageOptional = messageRepository.findById(id);
+
+        if (messageOptional.isPresent()) {
+            return ResponseEntity.ok().body(messageOptional);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
