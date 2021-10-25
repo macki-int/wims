@@ -1,6 +1,5 @@
-package com.mj.wims;
+package com.mj.wims.controller;
 
-import com.mj.wims.controller.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
