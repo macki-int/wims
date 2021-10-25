@@ -1,9 +1,9 @@
-package com.mj.wims.model;
+package com.mj.wims.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mj.wims.controller.UserController;
+import com.mj.wims.model.RoleEnum;
+import com.mj.wims.model.User;
 import com.mj.wims.repository.UserRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
