@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProductTypeDTOTest {
 
     @Test
-    public void whenProductTypeDTOTestCreate(){
+    public void whenProductTypeDTOCreate(){
         //BEFORE
          ProductTypeDTO productTypeDTO = new ProductTypeDTO();
 
