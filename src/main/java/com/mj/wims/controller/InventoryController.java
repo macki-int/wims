@@ -56,7 +56,7 @@ public class InventoryController {
     @GetMapping("/products/{id}")
     public ResponseEntity<?> findAllByProductId(@PathVariable Long id) {
         LOGGER.info("Got inventories by product id: " + id);
-        return ResponseEntity.ok().body(inventoryRepository.findAllByProductIdByQuantityAsc(id));
+        return ResponseEntity.ok().body(inventoryRepository.findAllByProductIdOrderByQuantityAsc(id));
     }
 
     @RolesAllowed("ROLE_ADMIN")
