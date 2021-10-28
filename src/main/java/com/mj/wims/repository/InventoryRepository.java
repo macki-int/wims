@@ -12,8 +12,9 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Query("SELECT i FROM Inventory i WHERE i.quantity > 0")
     List<Object> findAllWithQuantity();
 
-//    @Query("SELECT i FROM Inventory i WHERE i.product_id = ?1 ORDER BY p.id ASC")
+    //    @Query("SELECT i FROM Inventory i WHERE i.product_id = ?1 ORDER BY p.id ASC")
     List<Object> findAllByProductId(Long productId);
 
-    List<Object> findAllByProductIdByQuantityAsc(Long id);
+//    @Query("SELECT i FROM Inventory i WHERE i.product_id = ?1 ORDER BY i.quantity ASC")
+    List<Object> findAllByProductIdOrderByQuantityAsc(Long productId);
 }
