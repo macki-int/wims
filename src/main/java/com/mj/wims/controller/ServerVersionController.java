@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
+import java.util.Properties;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -15,7 +17,12 @@ public class ServerVersionController {
 
     @RolesAllowed("ROLE_ADMIN")
     @GetMapping()
-    public ResponseEntity<String> getServerVersionNumber(){
-        return ResponseEntity.ok().body("0.0.2");
+    public ResponseEntity<String> getServerVersionNumber() throws IOException {
+
+        final Properties properties = new Properties();
+        properties.load(this.getClass(). getClassLoader().getResourceAsStream("application.properties"));
+        System.out.println(properties.getProperty("version"));
+//        return ResponseEntity.ok().body("0.0.2");
+        return ResponseEntity.ok().body(properties.getProperty("version"));
     }
 }
