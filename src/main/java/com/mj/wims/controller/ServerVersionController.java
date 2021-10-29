@@ -18,11 +18,9 @@ public class ServerVersionController {
     @RolesAllowed("ROLE_ADMIN")
     @GetMapping()
     public ResponseEntity<String> getServerVersionNumber() throws IOException {
-
         final Properties properties = new Properties();
         properties.load(this.getClass(). getClassLoader().getResourceAsStream("application.properties"));
-        System.out.println(properties.getProperty("version"));
-//        return ResponseEntity.ok().body("0.0.2");
-        return ResponseEntity.ok().body(properties.getProperty("version"));
+
+        return ResponseEntity.ok().body(properties.getProperty("appversion"));
     }
 }
