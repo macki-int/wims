@@ -21,7 +21,11 @@ public class Message {
     private Boolean read;
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false)
-    private User user;
+    private User sender;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User receiver;
+
 
     public Message() {
     }
@@ -66,11 +70,19 @@ public class Message {
         this.read = read;
     }
 
-    public User getUser() {
-        return user;
+    public User getSender() {
+        return sender;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 }
