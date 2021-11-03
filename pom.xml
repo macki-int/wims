@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.mj</groupId>
     <artifactId>wims</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>wims</name>
     <description>Warehouse Inventory Management System</description>
     <properties>
