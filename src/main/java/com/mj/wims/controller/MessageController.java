@@ -65,6 +65,24 @@ public class MessageController {
     }
 
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @PatchMapping("read/{id}")
+    public ResponseEntity<?> setMessageReadById(@PathVariable Long id){
+        Optional<Message> messageOptional = messageRepository.findById(id);
+
+        if (messageOptional.isPresent()) {
+            try {
+                messageRepository.setMessageReadById(id);
+                return ResponseEntity.ok().build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return ResponseEntity.badRequest().body("Message did not set as read");
+        }
+
+        return ResponseEntity.badRequest().body("Object did not found");
+    }
+
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMessage(@PathVariable Long id) {
         Optional<Message> messageOptional = messageRepository.findById(id);
