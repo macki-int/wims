@@ -20,10 +20,10 @@ public class Message {
     @Value("${some.key:false}")
     private Boolean read;
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name="sender_id", nullable = false)
     private User sender;
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
+    @JoinColumn(name="receiver_id", nullable = false)
     private User receiver;
 
 
